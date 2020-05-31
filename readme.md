@@ -19,6 +19,17 @@ You must install [gatsby-source-rsshub](https://github.com/theowenyoung/gatsby-s
 module.exports = {
   plugins: [
     {
+      resolve: `gatsby-plugin-rsshub`
+    }
+```
+
+All options:
+
+```javascript
+// In your gatsby-config.js
+module.exports = {
+  plugins: [
+    {
       resolve: `gatsby-plugin-rsshub`,
       options: {
         // xml or atom, default xml
@@ -41,8 +52,10 @@ module.exports = {
         serialize({query}){
           return {siteUrl:query.site.siteMetadata.siteUrl}
         }, 
-
-  
+        // generate meta index page path
+        indexPath:"/rsshub",
+        // index template component
+        indexComponent:""
       },
     },
   ],

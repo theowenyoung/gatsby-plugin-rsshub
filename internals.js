@@ -1,3 +1,4 @@
+ const path = require('path')
  const runQuery = (handler, query) =>
   handler(query).then(r => {
     if (r.errors) {
@@ -31,11 +32,17 @@ exports.runQuery = runQuery
           node {
             slug
             json
+            data {
+              updated
+              title
+            }
           }
         }
       }
     }
-  `
+  `,
+  indexPath:'/rsshub',
+  indexComponent:path.resolve(__dirname,'meta.js')
 
 }
 
