@@ -1,5 +1,7 @@
 import React from "react";
 import SEO from './seo'
+import {withPrefix} from 'gatsby'
+
 const IndexPage = ({
   pageContext: {
     rsshub: { links },
@@ -13,7 +15,7 @@ const IndexPage = ({
       <ul>
         {links.map((item) => (
           <li>
-            <a href={item.href}>{item.title}</a> &nbsp;updated:&nbsp;{item.updated}
+            <a href={withPrefix(item.href)}>{item.title}</a> &nbsp;updated:&nbsp;{item.updated}
           </li>
         ))}
       </ul>

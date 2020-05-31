@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-rsshub",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Gatsby rsshub plugin, generate static xml from rsshub ",
   "keywords": [
     "gatsby",
@@ -19,6 +19,7 @@
     "fs-extra": "^9.0.0"
   },
   "devDependencies": {
+    "gatsby": "^2.22.15",
     "react": "^16.13.1",
     "react-helmet": "^6.0.0"
   },

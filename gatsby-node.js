@@ -9,6 +9,7 @@ exports.createPages = async ({ graphql, actions },pluginOptions) => {
     ...defaultOptions,
     ...pluginOptions,
   }
+  const prefix = options.prefix;
   const outputType = options.outputType;
   const template = options.indexComponent;
   const baseQuery = await runQuery(graphql, options.query)
@@ -18,10 +19,12 @@ exports.createPages = async ({ graphql, actions },pluginOptions) => {
     const {node} = rsshubQuery.allRsshub.edges[i];
     const outputPath = getOutputPath({
       node,
-      outputType
+      outputType,
+      prefix
     })
+    
     links.push({
-      href:outputPath,
+      href:(`/${outputPath}`),
       title:node.data.title,
       updated:node.data.updated
     })
@@ -49,6 +52,7 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
     ...pluginOptions,
   }
   const prefix = options.prefix;
+  
   const outputType = options.outputType
   const serialize = options.serialize;
   const baseQuery = await runQuery(graphql, options.query)
@@ -63,23 +67,31 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
     const data  = JSON.parse(json)
     const outputPath = getOutputPath({
       node,
-      outputType
+      outputType,
+      prefix
     })
+    
     const outputData =await template({
       data,
       type:outputType,
       atomlink:siteUrl+"/"+outputPath,
       titleLengthLimit
     })
-    await fs.outputFile(path.resolve(publicPath,prefix,outputPath),outputData)
+    await fs.outputFile(path.resolve(publicPath,outputPath),outputData)
   }
   
   
 }
 
-function getOutputPath({node,outputType}){
+function getOutputPath({node,outputType,prefix}){
     const ext = path.extname(node.slug)
     const outputTypeExt = `.${outputType}`
-    const outputPath = `${node.slug}${ext?"":outputTypeExt}`
+    let outputPath = `${prefix}${node.slug}${ext?"":outputTypeExt}`
+    // Make sure pathPrefix is empty if not needed
+    // Make sure pathPrefix only contains the first forward slash
+    outputPath = outputPath.replace(/\/\//g, "/")    
+    if(outputPath.indexOf('/')===0){
+      outputPath = outputPath.slice(1)
+    }
     return outputPath
 }
