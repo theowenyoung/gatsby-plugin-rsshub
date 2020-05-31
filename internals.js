@@ -17,6 +17,9 @@ exports.runQuery = runQuery
     {
       site {
         siteMetadata {
+          title
+          description
+          author
           siteUrl
         }
       }

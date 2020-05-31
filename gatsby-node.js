@@ -11,6 +11,7 @@ exports.createPages = async ({ graphql, actions },pluginOptions) => {
   }
   const outputType = options.outputType;
   const template = options.indexComponent;
+  const baseQuery = await runQuery(graphql, options.query)
   const rsshubQuery = await runQuery(graphql,options.rsshubQuery)
   const links = []
   for(let i=0;i<rsshubQuery.allRsshub.edges.length;i++){
@@ -32,7 +33,8 @@ exports.createPages = async ({ graphql, actions },pluginOptions) => {
     context: {
      rsshub:{
        links
-     }
+     },
+     siteMetadata:baseQuery.site.siteMetadata
     },
   })
 
