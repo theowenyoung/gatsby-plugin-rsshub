@@ -84,7 +84,10 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
 }
 
 function getOutputPath({node,outputType,prefix}){
-    const ext = path.extname(node.slug)
+    let ext = path.extname(node.slug)
+    if(ext!=='.xml' && ext !=='.atom'){
+      ext = ''
+    }
     const outputTypeExt = `.${outputType}`
     let outputPath = `${prefix}${node.slug}${ext?"":outputTypeExt}`
     // Make sure pathPrefix is empty if not needed
