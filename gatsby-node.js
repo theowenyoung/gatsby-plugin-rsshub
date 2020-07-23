@@ -60,11 +60,15 @@ exports.onPostBuild = async ({ graphql }, pluginOptions) => {
     query:baseQuery
   })
   const titleLengthLimit = options.titleLengthLimit
+  const templateDataSerialize = options.templateDataSerialize;
   const rsshubQuery = await runQuery(graphql,options.rsshubQuery)
   for(let i=0;i<rsshubQuery.allRsshub.edges.length;i++){
     const {node} = rsshubQuery.allRsshub.edges[i]
     const json = node.json
-    const data  = JSON.parse(json)
+    let data  = JSON.parse(json)
+    if(templateDataSerialize && typeof templateDataSerialize === 'function'){
+      data = templateDataSerialize(data);
+    }
     const outputPath = getOutputPath({
       node,
       outputType,

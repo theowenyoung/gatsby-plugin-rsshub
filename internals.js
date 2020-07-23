@@ -28,6 +28,9 @@ exports.runQuery = runQuery
   serialize({query}){
     return {siteUrl:query.site.siteMetadata.siteUrl}
   },
+  templateDataSerialize(data){
+    return data;
+  },
   rsshubQuery:`
     {
       allRsshub {

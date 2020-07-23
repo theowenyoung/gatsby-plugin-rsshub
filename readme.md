@@ -51,7 +51,12 @@ module.exports = {
         // should return object with key siteUrl
         serialize({query}){
           return {siteUrl:query.site.siteMetadata.siteUrl}
-        }, 
+        },
+        // if you need to custom the template data 
+        templateDataSerialize(data){
+          data.title = 'xxx';
+          return data
+        },
         // generate meta index page path
         indexPath:"/rsshub",
         // index template component
