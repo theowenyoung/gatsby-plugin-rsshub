@@ -1,7 +1,7 @@
 import React from "react";
 import SEO from './seo'
 import {withPrefix} from 'gatsby'
-
+import dayjs from 'dayjs'
 const IndexPage = ({
   pageContext: {
     rsshub: { links },
@@ -15,7 +15,7 @@ const IndexPage = ({
       <ul>
         {links.map((item) => (
           <li>
-            <a href={withPrefix(item.href)}>{item.title}</a> &nbsp;updated:&nbsp;{item.updated}
+            <a href={withPrefix(item.href)}>{item.title}</a> &nbsp;updated:&nbsp;{dayjs(item.updated).format('YYYY-MM-DD HH:mm:ss')}
           </li>
         ))}
       </ul>
