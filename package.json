@@ -20,7 +20,7 @@
     "fs-extra": "^9.0.0"
   },
   "devDependencies": {
-    "gatsby": "^2.22.15",
+    "gatsby": "^4.25.7",
     "react": "^16.13.1",
     "react-helmet": "^6.0.0"
   },
